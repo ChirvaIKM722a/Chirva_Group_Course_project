@@ -13,6 +13,8 @@ namespace Chirva_Group_Course_project
     public partial class Form1 : Form
     {
         private bool Mode;
+        private MajorWork MajorObject;
+
         public Form1()
         {
             InitializeComponent();
@@ -33,7 +35,10 @@ namespace Chirva_Group_Course_project
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            About A = new About();
+            A.tAbout.Start();
+            A.ShowDialog(); 
+            MajorObject = new MajorWork();
             this.Mode = true;
 
         }
@@ -54,6 +59,9 @@ namespace Chirva_Group_Course_project
                 tClock.Stop();
                 bStart.Text = "Пуск";
                 this.Mode = true;
+                MajorObject.Write(tbInput.Text);
+                MajorObject.Task();
+                label1.Text = MajorObject.Read();
             }
         }
 
