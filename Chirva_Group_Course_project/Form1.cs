@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,7 +42,6 @@ namespace Chirva_Group_Course_project
             About A = new About();
             A.tAbout.Start();
             A.ShowDialog(); 
-            MajorObject = new MajorWork();
             this.Mode = true;
 
         }
@@ -94,7 +94,7 @@ namespace Chirva_Group_Course_project
             MessageBox.Show(s, "Час роботи програми");
         }
 
-        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+            private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
