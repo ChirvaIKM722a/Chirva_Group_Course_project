@@ -75,6 +75,7 @@ namespace Chirva_Group_Course_project
                 D.Data = this.Data;
                 D.Result = Convert.ToString(this.Result);
                 D.Key = Key;
+                Key++;
                 BinaryFormatter BF = new BinaryFormatter();
                 BF.Serialize(S, D);
                 S.Flush(); // очищення буфера потоку
@@ -86,6 +87,77 @@ namespace Chirva_Group_Course_project
 
                 MessageBox.Show("Помилка роботи з файлом");
             }
+        }
+
+        public void ReadFromFile(System.Windows.Forms.DataGridView DG) 
+        {
+            try
+            {
+                if (!File.Exists(this.OpenFileName))
+                {
+                    MessageBox.Show("Файлу немає"); 
+                    return;
+                }
+                Stream S; 
+                S = File.Open(this.OpenFileName, FileMode.Open); 
+                Buffer D;
+                object O; 
+                BinaryFormatter BF = new BinaryFormatter(); 
+
+                while (S.Position < S.Length)
+                {
+                    O = BF.Deserialize(S); // десеріалізація
+                    D = O as Buffer;
+                    if (D == null) break;
+                    // Виведення даних на екран
+                }
+                S.Close(); // закриття
+            }
+            catch
+            {
+                MessageBox.Show("Помилка файлу"); 
+            }
+        }
+        public void Generator() // метод формування ключового поля
+        {
+            try
+            {
+                if (!File.Exists(this.SaveFileName)) 
+                {
+                    Key = 1;
+                    return;
+                }
+                Stream S; // створення потоку
+                S = File.Open(this.SaveFileName, FileMode.Open);
+                Buffer D;
+                object O; 
+                BinaryFormatter BF = new BinaryFormatter();
+                while (S.Position < S.Length)
+                {
+                    O = BF.Deserialize(S);
+                    D = O as Buffer;
+                    if (D == null) break;
+                    Key = D.Key;
+                }
+                Key++;
+                S.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Помилка файлу"); 
+            }
+        }
+        public bool SaveFileNameExists()
+        {
+            if (this.SaveFileName == null)
+                return false;
+            else return true;
+        }
+
+        public void NewRec() 
+        {
+            this.Data = ""; 
+            this.Result = null; 
         }
 
 
