@@ -39,6 +39,7 @@ namespace Chirva_Group_Course_project
         {
             MajorObject = new MajorWork();
             MajorObject.SetTime();
+            MajorObject.Modify = false;
             About A = new About();
             A.tAbout.Start();
             A.ShowDialog(); 
@@ -105,15 +106,17 @@ namespace Chirva_Group_Course_project
             A.ShowDialog();
         }
 
-        private void зберегтиЯкToolStripMenuItem_Click(object sender, EventArgs e)
+        private void зберегтіЯкToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sfdSave.ShowDialog() == DialogResult.OK)
+            if (sfdSave.ShowDialog() == DialogResult.OK) 
+               
             {
-                MessageBox.Show(sfdSave.FileName);
+                MajorObject.WriteSaveFileName(sfdSave.FileName); 
+                MajorObject.SaveToFile();
             }
         }
 
-        private void відкритиToolStripMenuItem_Click(object sender, EventArgs e)
+                private void відкритиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ofdOpen.ShowDialog() == DialogResult.OK)
             {

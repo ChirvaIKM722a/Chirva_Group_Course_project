@@ -152,7 +152,7 @@
             this.зберегтиЯкToolStripMenuItem.Name = "зберегтиЯкToolStripMenuItem";
             this.зберегтиЯкToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.зберегтиЯкToolStripMenuItem.Text = "Зберегти як...";
-            this.зберегтиЯкToolStripMenuItem.Click += new System.EventHandler(this.зберегтиЯкToolStripMenuItem_Click);
+            this.зберегтиЯкToolStripMenuItem.Click += new System.EventHandler(this.зберегтіЯкToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
