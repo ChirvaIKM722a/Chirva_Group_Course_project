@@ -95,27 +95,50 @@ namespace Chirva_Group_Course_project
             {
                 if (!File.Exists(this.OpenFileName))
                 {
-                    MessageBox.Show("Файлу немає"); 
+                    MessageBox.Show("Файлу немає");
                     return;
                 }
-                Stream S; 
-                S = File.Open(this.OpenFileName, FileMode.Open); 
+                Stream S;
+                S = File.Open(this.OpenFileName, FileMode.Open);
                 Buffer D;
-                object O; 
-                BinaryFormatter BF = new BinaryFormatter(); 
+                object O;
+                BinaryFormatter BF = new BinaryFormatter();
+                System.Data.DataTable MT = new System.Data.DataTable();
+                System.Data.DataColumn cKey = new
+
+                System.Data.DataColumn("Ключ");// формуємо колонку "Ключ"
+                System.Data.DataColumn cInput = new
+
+                System.Data.DataColumn("Вхідні дані");// формуємо колонку "Вхідні
+                System.Data.DataColumn cResult = new System.Data.DataColumn("Результат");
+
+                MT.Columns.Add(cKey);// додавання ключа
+                MT.Columns.Add(cInput);// додавання вхідних даних
+                MT.Columns.Add(cResult);// додавання результату
 
                 while (S.Position < S.Length)
                 {
-                    O = BF.Deserialize(S); // десеріалізація
-                    D = O as Buffer;
-                    if (D == null) break;
-                    // Виведення даних на екран
+
+                    while (S.Position < S.Length)
+                    {
+                        O = BF.Deserialize(S); // десеріалізація
+                        D = O as Buffer;
+                        if (D == null) break;
+                        System.Data.DataRow MR;
+                        MR = MT.NewRow();
+                        MR["Ключ"] = D.Key; // Занесення в таблицю номер
+                        MR["Вхідні дані"] = D.Data;
+                        MR["Результат"] = D.Result;
+                        MT.Rows.Add(MR);
+                        
+                    }
+                    DG.DataSource = MT;
+                    S.Close(); // закриття
                 }
-                S.Close(); // закриття
             }
             catch
             {
-                MessageBox.Show("Помилка файлу"); 
+                MessageBox.Show("Помилка файлу");
             }
         }
         public void Generator() // метод формування ключового поля
@@ -156,10 +179,70 @@ namespace Chirva_Group_Course_project
 
         public void NewRec() 
         {
-            this.Data = ""; 
-            this.Result = null; 
+            this.Data = "";
+            this.Result = null;
+            this.TimeBegin = new DateTime(); 
+            this.Modify = false; 
+            this.Key = 0; 
+            this.SaveFileName = null; 
+            this.OpenFileName = null; 
         }
 
+        public void Find(string Num) 
+        {
+            int N;
+            try
+            {
+                N = Convert.ToInt16(Num);
+            }
+            catch
+            {
+                MessageBox.Show("помилка пошукового запиту");
+            
+                      return;
+            }
+
+            try
+            {
+                if (!File.Exists(this.OpenFileName))
+                {
+                    MessageBox.Show("файлу немає");
+                
+                       return;
+                }
+                Stream S; 
+                S = File.Open(this.OpenFileName, FileMode.Open); 
+                Buffer D;
+                object O; 
+                BinaryFormatter BF = new BinaryFormatter(); 
+            
+                while (S.Position < S.Length)
+                {
+                    O = BF.Deserialize(S);
+                    D = O as Buffer;
+                    if (D == null) break;
+                    if (D.Key == N)
+
+{
+                        string ST;
+                        ST = "Запис містить:" + (char)13 + "No" + Num + "Вхідні дані:" +
+
+                        D.Data + "Результат:" + D.Result;
+
+                        MessageBox.Show(ST, "Запис знайдена");
+
+                      S.Close();
+                        return;
+                    }
+                }
+                S.Close();
+                MessageBox.Show("Запис не знайдена");
+            }
+            catch
+            {
+                MessageBox.Show("Помилка файлу");
+            }
+        }
 
     }
   

@@ -131,9 +131,11 @@ namespace Chirva_Group_Course_project
 
                 private void відкритиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ofdOpen.ShowDialog() == DialogResult.OK)
+            if (ofdOpen.ShowDialog() == DialogResult.OK) // Виклик діалогу відкриття файлу
+
             {
-                MessageBox.Show(ofdOpen.FileName);
+                MajorObject.WriteOpenFileName(ofdOpen.FileName);
+                MajorObject.ReadFromFile(dgwOpen); 
             }
         }
 
@@ -164,6 +166,11 @@ namespace Chirva_Group_Course_project
                 if (MessageBox.Show("Дані не були збережені. Продовжити вихід?", "УВАГА",
                 MessageBoxButtons.YesNo) == DialogResult.No)
                     e.Cancel = true;
+        }
+
+        private void bSearch_Click(object sender, EventArgs e)
+        {
+            MajorObject.Find(tbSearch.Text);
         }
     }
 }
