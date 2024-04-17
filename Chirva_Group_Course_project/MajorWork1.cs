@@ -116,8 +116,6 @@ namespace Chirva_Group_Course_project
                 MT.Columns.Add(cInput);// додавання вхідних даних
                 MT.Columns.Add(cResult);// додавання результату
 
-                while (S.Position < S.Length)
-                {
 
                     while (S.Position < S.Length)
                     {
@@ -134,7 +132,6 @@ namespace Chirva_Group_Course_project
                     }
                     DG.DataSource = MT;
                     S.Close(); // закриття
-                }
             }
             catch
             {
@@ -223,7 +220,7 @@ namespace Chirva_Group_Course_project
                     if (D == null) break;
                     if (D.Key == N)
 
-{
+                    {
                         string ST;
                         ST = "Запис містить:" + (char)13 + "No" + Num + "Вхідні дані:" +
 
