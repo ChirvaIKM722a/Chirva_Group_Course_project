@@ -249,6 +249,54 @@ namespace Chirva_Group_Course_project
             }
         }
 
+        private string SaveTextFileName;// ім'я файлу для запису текстового файлу
+        public void WriteSaveTextFileName(string S)
+        {
+            this.SaveTextFileName = S;
+        }
+        public bool SaveTextFileNameExists()
+        {
+            if (this.SaveTextFileName == null)
+                return false;
+            else return true;
+        }
+
+        public string ReadSaveTextFileName()
+        {
+            return SaveTextFileName;
+        }
+
+        public void SaveToTextFile(string name, System.Windows.Forms.DataGridView D)
+        {
+            try
+            {
+                System.IO.StreamWriter textFile;
+                if (!File.Exists(name))
+                {
+                    textFile = new System.IO.StreamWriter(name);
+                }
+                else
+                {
+                    textFile = new System.IO.StreamWriter(name, true);
+                }
+                for (int i = 0; i < D.RowCount - 1; i++)
+                {
+                    textFile.WriteLine("{0};{1};{2}", D[0, i].Value.ToString(), D[1, i].Value.ToString(), D[2, i].Value.ToString());
+
+                }
+                textFile.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Помилка роботи з файлом ");
+            }
+        }
+        private string OpenTextFileName;
+        public void WriteOpenTextFileName(string S)
+        {
+            this.OpenTextFileName = S;
+        }
+
 
 
     }
